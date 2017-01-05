@@ -10,6 +10,8 @@
 #include "xlsxwriter/xmlwriter.h"
 #include "xlsxwriter/custom.h"
 #include "xlsxwriter/utility.h"
+#include "xlsxwriter/format.h"
+#include "xlsxwriter/workbook.h"
 
 /*
  * Forward declarations.
@@ -222,3 +224,41 @@ lxw_custom_assemble_xml_file(lxw_custom *self)
  * Public functions.
  *
  ****************************************************************************/
+
+lxw_format* get_my_style(lxw_workbook* workbook, int name) {
+    lxw_color_t border_color = 0x808080;
+    lxw_color_t bg_color = 0xff9800;
+    lxw_color_t font_color = 0xffffff;
+    lxw_format *format;
+    lxw_format *num_format = workbook_add_format(workbook);
+    lxw_format *header_format = workbook_add_format(workbook);
+    lxw_format *str_format = workbook_add_format(workbook);
+    if (name == 0){
+        format = header_format;
+        format_set_font_name(format, "黑体");
+        format_set_font_size(format, 10);
+        format_set_font_color(format, font_color);
+        format_set_pattern(format, 1);
+        format_set_bg_color(format, bg_color);
+        format_set_border(format, LXW_BORDER_THIN);
+        format_set_border_color(format, border_color);
+        format_set_align(format, LXW_ALIGN_CENTER);
+        return header_format;
+    }
+    if (name == 1) {
+        format = str_format;
+        format_set_font_name(format, "黑体");
+        format_set_font_size(format, 10);
+        format_set_border(format, LXW_BORDER_THIN);
+        format_set_border_color(format, border_color);
+        format_set_align(format, LXW_ALIGN_LEFT);
+        return str_format;
+    }
+    format = num_format;
+    format_set_font_name(format, "黑体");
+    format_set_font_size(format, 10);
+    format_set_border(format, LXW_BORDER_THIN);
+    format_set_border_color(format, border_color);
+    format_set_align(format, LXW_ALIGN_RIGHT);
+    return num_format;
+}

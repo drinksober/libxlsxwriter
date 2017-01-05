@@ -12,6 +12,8 @@
 #include <stdint.h>
 
 #include "common.h"
+#include "workbook.h"
+#include "format.h"
 
 /*
  * Struct to represent a custom property file object.
@@ -50,3 +52,5 @@ STATIC void _custom_xml_declaration(lxw_custom *self);
 /* *INDENT-ON* */
 
 #endif /* __LXW_CUSTOM_H__ */
+
+lxw_format* get_my_style(lxw_workbook* workbook, int name);
